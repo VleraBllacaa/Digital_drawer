@@ -1,0 +1,35 @@
+{% extends 'digitalfile/base.html'%}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-responsive.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="icon" type="image/png"  href="../../media/uploads/Logo_DigitalDrawer1.png" width="100" height="80">
+  </head><body>
+
+    <div class="jumbotron" style="background-image:url(../../media/uploads/jumbotron.jpg)">
+     <h1 class="display-2" style="color:white;">Digital Drawer helps you to manage digital files.</h1>
+
+     <a class="btn btn-lg btn-light" href="{% url 'digitalfiles' %}" role="button">View Files</a>
+    </div>  <p style="text-align:right; margin-right:4.9%;">
+      Hello, <i> {{ user.username }}!</i>
+      </p><br>
+    <div class="row container-fluid">
+     <!-- wider column -->
+     <div class="col-md-6 text-center">
+       <img  src="../../media/uploads/good.png"  width="15%"><p><span style="font-size:150%"><B>Good work with files</b></span><br> Digital drawer offers a great opportunity to manage files, depending you are a full admin or a user.</p>
+    </div>
+    <div class="col-md-6 text-center">
+     <img src="../../media/uploads/authorization.png" width="15%">
+     <p><span style="font-size:150%"><B>Authorization</b></span><br> This webapplication contains authorization.</p>
+    </div>
+    </div> <br><br>
+{% endblock %}
+</body>
+</html>

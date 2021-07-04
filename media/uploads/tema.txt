@@ -1,0 +1,97 @@
+//krijimi i follderit
+
+django-admin startproject Digital_drawer
+cd Digital_drawer-project
+py -3 manage.py startapp digitalfile edhe te settings.py e shtojme 'digitalfile',
+py -3 manage.py runserver
+py -3 manage.py migrate
+
+//krijimi i signup-it
+  ne urls.py
+    #auth
+    path('signup/',views.signupuser, name='signupuser'),
+
+    #files
+    path('digitalfiles/',views.digitalfiles, name='digitalfiles'),
+
+
+//tek digital file shkojme newfile templates/digitalfile/signupuser.html
+ne signupuser.html
+<h1>Sign Up</h1>
+<h2>{{ error }}</h2>
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Sign Up</button>
+</form>
+
+
+//ne views.py
+from django.shortcuts import render,redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.contrib.auth import login,logout,authenticate
+
+# Create your views here.
+def signupuser(request):
+    if request.method=='GET':
+        return render(request,'digitalfile/signupuser.html',{'form':UserCreationForm()})
+    else:
+        #Create a new User
+        if request.POST['password1']==request.POST['password2']:
+            try:
+                user= User.objects.create_user(request.POST['username'],password=request.POST['password1'])
+                user.save()
+                login(request,user)
+                return redirect ('digitalfiles')
+            except IntegrityError:
+                return render(request,'digitalfile/signupuser.html',{'form':UserCreationForm(),'error':'Username has already been taken.'})
+        else:
+            #tell the user the passwords didn't match
+            return render(request,'digitalfile/signupuser.html',{'form':UserCreationForm(),'error':'Passwords did not match.'})
+
+def digitalfiles(request):
+    return render(request, 'digitalfile/digitalfiles.html')
+
+
+//SESSION
+//e krijojme nje file base.html te templates/digitalfile
+{% if user.is_authenticated %}
+Logged in as {{ user.username }}
+
+
+<form action="{% url 'logoutuser' %}" method="POST">
+{% csrf_token %}
+<button type="submit">Logout</button>
+</form>
+
+{% else %}
+<a href="{% url 'signupuser' %}">Signup</a>
+<a href="{% url 'loginuser' %}">Login</a>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+{% block content %}{% endblock %}
+
+//pastaj shkojme te digitalfiles.html
+
+
+{% extends 'digitalfile/base.html'%}
+
+{% block content %}
+<br>
+Current page
+
+{% endblock %}
+
+//forma per logout
+/shkojme te urls.py
+def logoutuser(request):
+    if request.method=='POST':
+        logout(request)
+        return redirect('home')
+
+
+krijimi i models ne models.py (tabeles)

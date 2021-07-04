@@ -1,0 +1,136 @@
+
+
+
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-responsive.css">
+  <link rel="icon" type="image/png"  href="../../media/uploads/Logo_DigitalDrawer1.png">
+
+  </head>
+  <body><br><br><br><br>
+    <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+      <div class="container">
+       <a class="navbar-brand" href="">Digital Drawer</a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarCollapse">
+      {% if request.user.is_staff %}
+       <ul class="navbar-nav mr-auto">
+
+       <li class="nav-item active">
+
+       <a class="nav-link" href="{% url 'home' %}">Home
+       <span class="sr-only">(current)</span>
+       </a>
+       </li>
+
+       <li class="nav-item">
+       <a class="nav-link" href="{% url 'createfiles' %}">Create</a>
+       </li>
+
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'digitalfiles' %}">View File</a>
+       </li>
+      </ul>
+      {% endif %}
+       <ul class="nav navbar-nav ml-auto">
+         {% if user.is_authenticated %}
+       <li class="nav-item">
+          <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+          <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+        {% csrf_token %}
+        <button type="submit" id="signOutBtn" class="nav-link">Logout</button>
+      </form>
+       </li>
+           {% else %}
+       <li class="nav-item">
+         <li class="nav-item">
+         <a class="nav-link" href="{% url 'homeUser' %}">Home</a>
+         </li>
+         <li class="nav-item">
+         <a class="nav-link" href="{% url 'CreateFilesUser' %}">Upload File</a>
+         </li>
+       <a class="nav-link" href="{% url 'signupuser' %}">Sign up</a>
+       </li>
+       <li class="nav-item">
+       <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
+       </li>
+
+         {% endif %}
+      </ul>
+       </div>
+     </div>
+     </nav>
+<div class="row justify-content-center mt-5">
+       <div class="col-md-5 text-center">
+<h2>Submit your file</h2>
+</div>
+    </div> <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+    {% if error %}
+                   <div class="alert alert-danger" role="alert">
+                       {{ error }}
+                   </div>
+               {% endif %}
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" name="Name" class="form-control" id="Name" required>
+    </div>
+    <div class="form-group">
+        <label for="Surname">Surname</label>
+        <input type="text" name="Surname" class="form-control" id="Surname" required>
+    </div>
+    <div class="form-group">
+        <label for="Email">E-mail</label>
+        <input type="email" name="Email" class="form-control" id="Email" required>
+    </div>
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" name="Title" class="form-control" id="Title" required>
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea name="Description" class="form-control" id="Description" ></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Field">Field</label>
+        <input type="text" name="Field" class="form-control" id="Field" required>
+    </div>
+    <div class="form-group">
+        <label for="FileUpload">FileUpload</label><br>
+        <input type="file" name="FileUpload" id="FileUpload" required>
+    </div><br>
+<div class="text-center">
+<button type="submit" class="btn btn-primary " >Add</button></div>
+</form>
+</div>
+</div>
+
+
+<hr>
+ <footer class="container mt-4  text-dark">
+
+  <div class="row">
+  <div class="col">
+  <p class="text-center">Design by <a href="#">Vlera Bllaca</a></p>
+  </div>
+  </div>
+ </footer>
+<div class="container">
+
+</div>
+{% endblock %}

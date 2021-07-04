@@ -1,0 +1,67 @@
+{% extends 'digitalfile/base.html'%}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-responsive.css">
+  <link rel="icon" type="image/png"  href="../../media/uploads/Logo_DigitalDrawer1.png">
+  <style>
+    th{color:white;
+       verticaly-align:center;}
+    </style>
+  </head>
+  <body><br><br><br><br>
+<p style="text-align:right; margin-right:4.9%;">
+Hello, <i> {{ user.username }}!</i>
+</p>
+<h2 class="text-center">Manage files</h2>
+<br>
+
+<table class="table table-hover">
+  <tr>
+    <th class="align-middle bg-primary">Name and Surname</th>
+    <th class="align-middle bg-primary">Accept abstract</th>
+    <th class="align-middle bg-primary">Decline abstract</th>
+    <th class="align-middle bg-primary">Title</th>
+    <th class="align-middle bg-primary">Description</th>
+    <th class="align-middle bg-primary">Field</th>
+    <th class="align-middle bg-primary">File</th>
+    <th class="align-middle bg-primary">Date submitted</th>
+    {% if request.user.is_staff %}
+    <th class="align-middle bg-primary">Edit|Delete</th>
+    {% endif %}
+  </tr>
+{% for file in digitalfiles %}
+
+
+  <tr>
+    <td>{{ file.Name }} {{ file.Surname}}</td>
+    <td><a href="mailto:{{ file.Email }}?subject=Response from DigitalDrawer&body=Hi {{ file.Name }}, your abstract has been accepted! Congrats.">Accept</a></td>
+    <td><a href="mailto:{{ file.Email }}?subject=Response from DigitalDrawer&body=Hi {{ file.Name }}, your abstract has not been accepted!.">Decline</a></td>
+    <td>{{ file.Title }}</td>
+    <td>{{ file.Description }}</td>
+    <td>{{ file.Field }}</td>
+    <td><a href='{{ file.FileUpload.url }}'>View File</a></td>
+    <td>{{ file.Created }}</td>
+        {% if request.user.is_staff %}
+    <td><a href="{% url 'updatefiles'  file.id %}" class="btn btn-secondary" style="color:white !important; margin-bottom:2%">Update</a>
+      <form method="POST" action="{% url 'deletefiles' file.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </td>
+    {% endif %}
+  </tr>
+
+{% endfor %}
+</table>
+{% endblock %}
+</body>
+</html>
