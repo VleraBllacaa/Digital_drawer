@@ -1,101 +1,83 @@
-
-
-
-
-
 {% block content %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/bootstrap-responsive.css">
   <link rel="icon" type="image/png"  href="../../media/uploads/Logo_DigitalDrawer1.png">
-
   </head>
   <body>
     <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
-      <div class="container">
-       <a class="navbar-brand" href="">Digital Drawer</a>
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-       <span class="navbar-toggler-icon"></span>
-       </button>
+        <div class="container">
+            <a class="navbar-brand" href="">Digital Drawer</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+              </button>
        <div class="collapse navbar-collapse" id="navbarCollapse">
-      {% if request.user.is_staff %}
-       <ul class="navbar-nav mr-auto">
-
-       <li class="nav-item active">
-
-       <a class="nav-link" href="{% url 'home' %}">Home
-       <span class="sr-only">(current)</span>
-       </a>
-       </li>
-
-       <li class="nav-item">
-       <a class="nav-link" href="{% url 'createfiles' %}">Create</a>
-       </li>
-
-      <li class="nav-item">
-       <a class="nav-link" href="{% url 'digitalfiles' %}">View File</a>
-       </li>
-      </ul>
-      {% endif %}
+            {% if request.user.is_staff %}
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'createfiles' %}">Create</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'digitalfiles' %}">View File</a>
+            </li>
+          </ul>
+            {% endif %}
        <ul class="nav navbar-nav ml-auto">
-         {% if user.is_authenticated %}
-       <li class="nav-item">
-          <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
-          <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
-        {% csrf_token %}
-        <button type="submit" id="signOutBtn" class="nav-link">Logout</button>
-      </form>
+            {% if user.is_authenticated %}
+          <li class="nav-item">
+              <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+                <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                    {% csrf_token %}
+                  <button type="submit" id="signOutBtn" class="nav-link">Logout</button>
+                </form>
+          </li>
+                    {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'homeUser' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'CreateFilesUser' %}">Upload File</a>
+          </li>
+          <li class="nav-item">
        </li>
-           {% else %}
-
-         <li class="nav-item">
-         <a class="nav-link" href="{% url 'homeUser' %}">Home</a>
-         </li>
-         <li class="nav-item">
-         <a class="nav-link" href="{% url 'CreateFilesUser' %}">Upload File</a>
-         </li>
-         
-       <li class="nav-item">
-
-       </li>
-
          {% endif %}
       </ul>
-       </div>
-     </div>
-     </nav>
+    </div>
+  </div>
+</nav>
      <div class="jumbotron" style="background-image:url(../../media/uploads/jumbotron.jpg)">
-      <h1 class="display-2" style="color:white;">Digital Drawer is a platform where you can upload your files</h1>
-
-      <a class="btn btn-lg btn-light" href="{% url 'CreateFilesUser' %}" role="button">Upload File</a>
+        <h1 class="display-2" style="color:white;">Digital Drawer is a platform where you can upload your files</h1>
+          <a class="btn btn-lg btn-light" href="{% url 'CreateFilesUser' %}" role="button">Upload File</a>
      </div>
      <div class="row container-fluid">
-      <!-- wider column -->
-      <div class="col-md-6 text-center">
-        <img  src="../../media/uploads/good.png"  width="15%"><p><span style="font-size:150%"><B>Good work with files</b></span><br> Digital drawer offers a great opportunity to manage files, depending you are a full admin or a user.</p>
-     </div>
+        <div class="col-md-6 text-center">
+          <img  src="../../media/uploads/good.png"  width="15%"><p><span style="font-size:150%"><B>Good work with files</b></span><br> Digital drawer offers a great opportunity to manage files, depending you are a full admin or a user.</p>
+        </div>
      <div class="col-md-6 text-center">
-      <img src="../../media/uploads/authorization.png" width="15%">
-      <p><span style="font-size:150%"><B>Authorization</b></span><br> This webapplication contains authorization.</p>
-     </div>
-     </div> <br><br>
+        <img src="../../media/uploads/authorization.png" width="15%">
+          <p><span style="font-size:150%"><B>Authorization</b></span><br> This webapplication contains authorization.</p>
+      </div>
+    </div> 
+    <br><br>
      <hr>
       <footer class="container mt-4  text-dark">
-
-       <div class="row">
-       <div class="col">
-       <p class="text-center">Design by <a href="#">Vlera Bllaca</a></p>
-       </div>
-       </div>
+        <div class="row">
+          <div class="col">
+            <p class="text-center">Design by <a href="#">Vlera Bllaca</a></p>
+          </div>
+        </div>
       </footer>
      <div class="container">
-
      </div>
 {% endblock %}

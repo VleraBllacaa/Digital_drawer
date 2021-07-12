@@ -1,12 +1,10 @@
 {% extends 'digitalfile/base.html'%}
-
 {% block content %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/bootstrap.css">
@@ -18,12 +16,9 @@
     </style>
   </head>
   <body><br><br><br><br>
-<p style="text-align:right; margin-right:4.9%;">
-Hello, <i> {{ user.username }}!</i>
-</p>
+<p style="text-align:right; margin-right:4.9%;">Hello, <i> {{ user.username }}!</i></p>
 <h2 class="text-center">Manage files</h2>
 <br>
-
 <table class="table table-hover">
   <tr>
     <th class="align-middle bg-primary">Name and Surname</th>
@@ -39,8 +34,6 @@ Hello, <i> {{ user.username }}!</i>
     {% endif %}
   </tr>
 {% for file in digitalfiles %}
-
-
   <tr>
     <td>{{ file.Name }} {{ file.Surname}}</td>
     <td><a href="mailto:{{ file.Email }}?subject=Response from DigitalDrawer&body=Hi {{ file.Name }}, your abstract has been accepted! Congrats.">Accept</a></td>
@@ -59,7 +52,6 @@ Hello, <i> {{ user.username }}!</i>
     </td>
     {% endif %}
   </tr>
-
 {% endfor %}
 </table>
 {% endblock %}
